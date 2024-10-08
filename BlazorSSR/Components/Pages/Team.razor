@@ -1,25 +1,32 @@
 ﻿@page "/team"
 @using BlazorSSR.Services
 @inject IEmployeeService EmployeeService
+@attribute [StreamRendering]
 
 <h1>Team</h1>
 
 <p>Our team members make the magic happen.</p>
 
-<div style="display: grid; grid-template-columns: 1fr 1fr 1fr;">
-    @foreach (var member in TeamMembers)
-    {
-        <div style="margin-bottom: 25px;">
-            <h2>@member.Name</h2>
-            <div>@member.Role</div>
-            <div>@member.StartingDay.ToShortDateString()</div>
-        </div>
-    }
-</div>
-
+@if (TeamMembers != null)
+{
+    <div style="display: grid; grid-template-columns: 1fr 1fr 1fr;">
+        @foreach (var member in TeamMembers)
+        {
+            <div style="margin-bottom: 25px;">
+                <h2>@member.Name</h2>
+                <div>@member.Role</div>
+                <div>@member.StartingDay.ToShortDateString()</div>
+            </div>
+        }
+    </div>
+}
+else
+{
+    <div>Loading...</div>
+}
 
 @code {
-    public IEnumerable<Employee> TeamMembers { get; set; } = new List<Employee>();
+    public IEnumerable<Employee>? TeamMembers { get; set; } = null;
 
     protected async override Task OnInitializedAsync()
     {

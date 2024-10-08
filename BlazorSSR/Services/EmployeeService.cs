@@ -14,7 +14,7 @@ public class EmployeeService : IEmployeeService
             new Employee("Sabrina Walsh", "Software Developer", new DateOnly(2020, 1, 1))
         };
 
-        await Task.Delay(1000);
+        await Task.Delay(2000);
 
         return employees;
     }
